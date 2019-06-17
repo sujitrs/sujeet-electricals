@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+    <script>
+        
+        const JD="JD";
+        const SGR="Sagar";
+        const COPPER="Copper";
+        var data=new Map();
+        const profit=20;
+        
+        const FIRST_ROW={length:90,purchaseCost:1700};
+        const SECOND_ROW={length:90,purchaseCost:2320};
+        const THIRD_ROW={length:90,purchaseCost:2760};
+        const FOURTH_ROW={length:90,purchaseCost:4320};
+        const FIFTH_ROW={length:270,purchaseCost:2064};
+        const SIXTH_ROW={length:270,purchaseCost:2640};
+        const SEVENTH_ROW={length:270,purchaseCost:4320};
+        const EIGHTH_ROW={length:438,purchaseCost:7844};
+        const NINETH_ROW={length:300,purchaseCost:5400};
+        const TENTH_ROW={length:310,purchaseCost:8680};
+
+        data.set('JD_1.5_2_C',FIRST_ROW);
+        data.set('JD_1.5_3_C',SECOND_ROW);
+        data.set('JD_2.5_2_C',THIRD_ROW);
+        data.set('JD_2.5_3_C',FOURTH_ROW);
+        data.set('SG_2.5_2_A',FIFTH_ROW);
+        data.set('SG_4_2_A',SIXTH_ROW);
+        data.set('SG_6_2_A',SEVENTH_ROW);
+        data.set('SG_7/36_3_A',EIGHTH_ROW);
+        data.set('SG_40/38_4_3_A',NINETH_ROW);
+        data.set('SG_40/38_6_3_A',TENTH_ROW);
+
+
+
+
+
+
+        function getPrice(company,number,mm,core,material){
+            alert(data.get(company+'_'+mm+'_'+core+'_'+material));    
+        }
+
+        function getPriceBasedOnKey(){
+            //alert(document.getElementById('company').checked.value)
+            var company=document.querySelector('input[name = "company"]:checked').value;
+            var size=document.querySelector('input[name = "size"]:checked').value;
+            var material=document.querySelector('input[name = "material"]:checked').value;
+            var core=document.querySelector('input[name = "core"]:checked').value;
+            
+            key=company+'_'+size+'_'+core+'_'+material;//document.getElementById('details').value;
+            if(data.get(key)){
+                var purchaseCost =(data.get(key)).purchaseCost;
+                var length=(data.get(key)).length;
+                var sellingCost=Math.ceil((data.get(key)).purchaseCost*((100+profit)/100));
+                var retailSellingFtCost=Math.ceil((sellingCost/length)/3.281);
+                var retailSellingMtCost=Math.ceil(sellingCost/length);
+                alert("Complete Bundle of "+length+" mtr.@ "+sellingCost+"\nRetail @ "+retailSellingFtCost+"/ft\n Retail @"+retailSellingMtCost+"/mtr");
+            }else{
+                alert("Not Found");
+            }
+
+        }
+        
+        
+    </script>
+<body>
+
+        <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                        <div>
+                                <input type="radio" name="company" value="SG" checked> Sagar<br>
+                                <input type="radio" name="company" value="JD"> JD<br>
+                            </div>
+                            
+                  </div>
+                  <div class="col-sm">
+                        <div>
+                                <input type="radio" name="size" value="1.5" checked> 1.5mm<br>
+                                <input type="radio" name="size" value="2.5"> 2.5mm<br>
+                                <input type="radio" name="size" value="4" checked> 4mm<br>
+                                <input type="radio" name="size" value="6"> 6mm<br>
+                                <input type="radio" name="size" value="7/36_3"> 7/36 3mm<br>
+                                <input type="radio" name="size" value="40/38_4"> 40/38 4mm<br>
+                                <input type="radio" name="size" value="40/38_6"> 40/38 6mm<br>
+                            </div>
+                            
+                  </div>
+                  <div class="col-sm">
+                        <div>
+                                <input type="radio" name="core" value="2" checked> 2 Core<br>
+                                <input type="radio" name="core" value="3">3 Core<br>
+                            </div>
+                        
+                  </div>
+                  <div class="col-sm">
+                        <div>
+                                <div>
+                                        <input type="radio" name="material" value="A" checked> Aluminium<br>
+                                        <input type="radio" name="material" value="C"> Copper<br>
+                                    </div>
+                                    
+                            </div>
+                        
+                  </div>
+
+                </div>
+              </div>
+                <!-- Content here -->
+
+    
+<br>
+    
+<!--<input id=details type="text" value="SG_6_2_A">-->
+<button onclick="getPriceBasedOnKey()" >Get Price</button>    
+<div>
+    <li>
+
+    </li>
+</div>
+</div>
+</body>
+</html>
+
+
+
